@@ -1,6 +1,6 @@
 export async function fetchSheetData(sheetId, sheetName) {
     const encodedSheet = encodeURIComponent(sheetName)
-    const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=${encodedSheet}`
+    const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&headers=0&sheet=${encodedSheet}`
 
     const response = await fetch(url)
 
