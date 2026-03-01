@@ -58,6 +58,7 @@ Key-value pairs for visual customization. All options are optional — any missi
 | West Background | URL to an image for the right bracket half | *(no image)* |
 | East Color | Hex color for the left side, e.g. `#00c853` | `#00c853` |
 | West Color | Hex color for the right side, e.g. `#0077b6` | `#0077b6` |
+| Max Seed Display | Only show seed numbers up to this value, e.g. `8` | *(all seeds shown)* |
 
 The "Key" header row is optional. Keys are case-insensitive.
 

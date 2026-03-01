@@ -91,7 +91,10 @@ async function initialize() {
     westBackground: rawMeta['west background'] || '',
     eastColor: rawMeta['east color'] || '#00c853',
     westColor: rawMeta['west color'] || '#0077b6',
+    maxSeedDisplay: parseInt(rawMeta['max seed display'] || '0', 10) || 0,
   }
+
+  bracket.maxSeedDisplay = metaConfig.maxSeedDisplay
 
   applyMetaStyles(metaConfig)
   loadingIndicator.hidden = true

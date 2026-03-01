@@ -63,7 +63,10 @@ function findSeedForName(bracket, name) {
     if (!name || !bracket) return null
     const norm = name.trim().toLowerCase()
     const index = bracket.playerNames.findIndex(p => p.trim().toLowerCase() === norm)
-    return index >= 0 ? index + 1 : null
+    if (index < 0) return null
+    const seed = index + 1
+    if (bracket.maxSeedDisplay > 0 && seed > bracket.maxSeedDisplay) return null
+    return seed
 }
 
 export function renderMatchCard(match, bracket) {
