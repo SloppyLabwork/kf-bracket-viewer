@@ -58,11 +58,16 @@ Key-value pairs for visual customization. All options are optional — any missi
 | West Background | URL to an image for the right bracket half | *(no image)* |
 | East Color | Hex color for the left side, e.g. `#00c853` | `#00c853` |
 | West Color | Hex color for the right side, e.g. `#0077b6` | `#0077b6` |
+| East Background Credit | Art credit text for the left image | *(none)* |
+| West Background Credit | Art credit text for the right image | *(none)* |
 | Max Seed Display | Only show seed numbers up to this value, e.g. `8` | *(all seeds shown)* |
+| Link__*Display Text* | A URL to link to under the title | *(no links)* |
 
 The "Key" header row is optional. Keys are case-insensitive.
 
-Background images are cropped at an angle where they meet the center of the bracket, with a colored border matching the side's color.
+Background images are cropped at an angle where they meet the center of the bracket, with a colored border matching the side's color. Credit text appears at the bottom corner of each image.
+
+Links are added using the `Link__` prefix followed by the display text. For example, a key of `Link__Tournament Rules` with a value of `https://example.com/rules` creates a "Tournament Rules" link under the title. You can add multiple links.
 
 ## URL Parameters
 

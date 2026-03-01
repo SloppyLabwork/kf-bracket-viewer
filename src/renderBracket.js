@@ -77,6 +77,20 @@ export function renderBracket(bracket, containerElement, metaConfig = {}) {
         containerElement.append(title)
     }
 
+    if (metaConfig.links?.length > 0) {
+        const linksBar = document.createElement("div")
+        linksBar.className = "tournament-links"
+        for (const link of metaConfig.links) {
+            const anchor = document.createElement("a")
+            anchor.href = link.url
+            anchor.target = "_blank"
+            anchor.rel = "noopener noreferrer"
+            anchor.textContent = link.text
+            linksBar.append(anchor)
+        }
+        containerElement.append(linksBar)
+    }
+
     const eastHalf = createHalfBracket("east", bracket)
     const finalColumn = createFinalColumn(bracket)
     const westHalf = createHalfBracket("west", bracket)
@@ -90,9 +104,22 @@ export function renderBracket(bracket, containerElement, metaConfig = {}) {
         eastHalf.classList.add("has-bg")
         eastHalf.style.setProperty("--bg-image", `url("${metaConfig.eastBackground}")`)
     }
+    if (metaConfig.eastBackgroundCredit) {
+        const credit = document.createElement("div")
+        credit.className = "bg-credit bg-credit-east"
+        credit.textContent = metaConfig.eastBackgroundCredit
+        eastHalf.append(credit)
+    }
+
     if (metaConfig.westBackground) {
         westHalf.classList.add("has-bg")
         westHalf.style.setProperty("--bg-image", `url("${metaConfig.westBackground}")`)
+    }
+    if (metaConfig.westBackgroundCredit) {
+        const credit = document.createElement("div")
+        credit.className = "bg-credit bg-credit-west"
+        credit.textContent = metaConfig.westBackgroundCredit
+        westHalf.append(credit)
     }
 
     bracketContainer.append(eastHalf, finalColumn, westHalf)

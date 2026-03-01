@@ -97,6 +97,41 @@ body {
     -webkit-text-fill-color: transparent;
 }
 
+.tournament-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 0.5rem 1rem 0;
+}
+
+.tournament-links a {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: color 0.2s;
+}
+
+.tournament-links a:hover {
+    color: var(--color-text-primary);
+}
+
+.bg-credit {
+    position: absolute;
+    bottom: 0.5rem;
+    font-size: 0.6rem;
+    color: var(--color-text-secondary);
+    opacity: 0.6;
+    z-index: 1;
+}
+
+.bg-credit-east {
+    left: 0.5rem;
+}
+
+.bg-credit-west {
+    right: 0.5rem;
+}
+
 .bracket {
     display: flex;
     align-items: stretch;

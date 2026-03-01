@@ -85,13 +85,25 @@ async function initialize() {
   applyResultsToBracket(bracket, matchResults)
 
   const rawMeta = parseMetaConfig(metaCsv)
+  const links = []
+  for (const [key, value] of Object.entries(rawMeta)) {
+    if (key.startsWith('link__') && value) {
+      const rawText = key.slice('link__'.length).trim()
+      const titleCased = rawText.replace(/\b\w/g, c => c.toUpperCase())
+      links.push({ text: titleCased, url: value })
+    }
+  }
+
   const metaConfig = {
     tournamentName: rawMeta['tournament name'] || '',
     eastBackground: rawMeta['east background'] || '',
     westBackground: rawMeta['west background'] || '',
+    eastBackgroundCredit: rawMeta['east background credit'] || '',
+    westBackgroundCredit: rawMeta['west background credit'] || '',
     eastColor: rawMeta['east color'] || '#00c853',
     westColor: rawMeta['west color'] || '#0077b6',
     maxSeedDisplay: parseInt(rawMeta['max seed display'] || '0', 10) || 0,
+    links,
   }
 
   bracket.maxSeedDisplay = metaConfig.maxSeedDisplay
