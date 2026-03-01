@@ -1,6 +1,7 @@
-export async function fetchSheetData(sheetId, sheetName) {
+export async function fetchSheetData(sheetId, sheetName, { rawRows = false } = {}) {
     const encodedSheet = encodeURIComponent(sheetName)
-    const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&headers=0&sheet=${encodedSheet}`
+    const headersParam = rawRows ? "&headers=0" : ""
+    const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv${headersParam}&sheet=${encodedSheet}`
 
     const response = await fetch(url)
 

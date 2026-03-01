@@ -66,7 +66,7 @@ async function initialize() {
       return ''
     },
   )
-  const metaCsv = await fetchSheetData(config.sheetId, config.metaSheet).catch(
+  const metaCsv = await fetchSheetData(config.sheetId, config.metaSheet, { rawRows: true }).catch(
     (err) => {
       console.warn('No meta sheet found, using defaults:', err)
       return ''
