@@ -34,6 +34,8 @@ body {
 #bracket-app {
     height: 100vh;
     overflow: auto;
+    display: flex;
+    flex-direction: column;
     background: linear-gradient(135deg, rgba(0, 200, 83, 0.08), rgba(0, 119, 182, 0.08));
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
@@ -85,6 +87,8 @@ body {
 }
 
 .tournament-title {
+    position: sticky;
+    left: 0;
     padding: 1.5rem 1rem 0;
     font-size: 1.4rem;
     font-weight: 700;
@@ -98,6 +102,8 @@ body {
 }
 
 .tournament-links {
+    position: sticky;
+    left: 0;
     display: flex;
     justify-content: center;
     gap: 1.5rem;
@@ -135,9 +141,9 @@ body {
 .bracket {
     display: flex;
     align-items: stretch;
-    padding: 2rem 1rem;
+    padding: 1rem 1rem 2rem;
     gap: 0;
-    min-height: 100vh;
+    flex: 1;
     width: fit-content;
     margin: 0 auto;
 }
