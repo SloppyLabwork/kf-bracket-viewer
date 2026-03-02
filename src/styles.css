@@ -162,6 +162,7 @@ body {
     justify-content: center;
     padding: 0 var(--round-gap);
     min-width: 260px;
+    position: relative;
 }
 
 .bracket-final .match-wrapper {
@@ -353,14 +354,94 @@ body {
 
 
 .champion-display {
-    margin-top: 1.5rem;
+    position: absolute;
+    top: calc(50% + 50px);
+    left: 50%;
+    transform: translateX(-50%);
     padding: 0.75rem 1.5rem;
     font-size: 1.1rem;
     font-weight: 700;
     text-align: center;
+    white-space: nowrap;
     background: linear-gradient(135deg, var(--color-gradient-start), var(--color-gradient-end));
     border-radius: var(--card-border-radius);
     color: var(--color-text-primary);
+}
+
+.copy-prediction-button {
+    position: absolute;
+    top: calc(50% + 60px);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.6rem 1.25rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+    border: 2px solid #ffb000;
+    border-radius: var(--card-border-radius);
+    background: rgba(255, 176, 0, 0.15);
+    color: #ffb000;
+    cursor: pointer;
+    transition: background 0.2s, opacity 0.2s;
+}
+
+.copy-prediction-button:hover:not(:disabled) {
+    background: rgba(255, 176, 0, 0.3);
+}
+
+.copy-prediction-button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+/* --- Prediction mode --- */
+
+.prediction-mode .predictable {
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.prediction-mode .predictable:hover {
+    background: rgba(255, 176, 0, 0.12);
+}
+
+.match-card.has-prediction {
+    border-color: rgba(255, 176, 0, 0.5);
+}
+
+.predicted-winner {
+    background: rgba(255, 176, 0, 0.12);
+}
+
+.predicted-winner .player-name {
+    font-weight: 600;
+    color: #ffb000;
+}
+
+.predicted-loser {
+    opacity: 0.5;
+}
+
+.clipboard-toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 176, 0, 0.95);
+    color: #0a0e1a;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    z-index: 9999;
+    animation: toast-fade 3s ease-in-out forwards;
+}
+
+@keyframes toast-fade {
+    0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
+    10% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    80% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
 }
 
 /* --- East connectors (LTR) --- */

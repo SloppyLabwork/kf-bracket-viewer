@@ -69,7 +69,37 @@ function findSeedForName(bracket, name) {
     return seed
 }
 
-export function renderMatchCard(match, bracket) {
+function buildPredictablePlayerRow(name, seed, isPredictedWinner, onPredictionClick, match) {
+    const isWinner = isPredictedWinner === true
+    const isLoser = isPredictedWinner === false
+
+    let className = "match-player"
+    if (isWinner) className += " predicted-winner"
+    else if (isLoser) className += " predicted-loser"
+
+    const row = createElementWithClass("div", className)
+
+    const seedBadge = createElementWithClass("span", "player-seed")
+    seedBadge.textContent = seed ?? ""
+
+    const nameSpan = createElementWithClass("span", "player-name")
+    nameSpan.textContent = name || "TBD"
+
+    if (!name) {
+        nameSpan.classList.add("tbd")
+    }
+
+    row.append(seedBadge, nameSpan)
+
+    if (name && onPredictionClick) {
+        row.classList.add("predictable")
+        row.addEventListener("click", () => onPredictionClick(match, name))
+    }
+
+    return row
+}
+
+export function renderMatchCard(match, bracket, onPredictionClick) {
     const card = createElementWithClass("div", "match-card")
 
     if (match.result) {
@@ -107,6 +137,21 @@ export function renderMatchCard(match, bracket) {
         const bottomRow = buildPlayerRow(match.bottomPlayerName, bottomSeed, !topIsWinner, bottomDeck, bottomChains, !topIsWinner && deckSwapped)
 
         card.append(topRow, bottomRow)
+    } else if (match.isPrediction) {
+        card.classList.add("has-prediction")
+
+        const topName = match.topPlayerName
+        const bottomName = match.bottomPlayerName
+        const winnerName = match.winnerName
+
+        const topSeed = topName ? findSeedForName(bracket, topName) : null
+        const bottomSeed = bottomName ? findSeedForName(bracket, bottomName) : null
+
+        const topIsWinner = topName === winnerName
+        card.append(
+            buildPredictablePlayerRow(topName, topSeed, topIsWinner, onPredictionClick, match),
+            buildPredictablePlayerRow(bottomName, bottomSeed, !topIsWinner, onPredictionClick, match),
+        )
     } else {
         card.classList.add("pending")
 
@@ -116,10 +161,17 @@ export function renderMatchCard(match, bracket) {
         const topSeed = topName ? findSeedForName(bracket, topName) : null
         const bottomSeed = bottomName ? findSeedForName(bracket, bottomName) : null
 
-        card.append(
-            buildPendingPlayerRow(topName, topSeed),
-            buildPendingPlayerRow(bottomName, bottomSeed),
-        )
+        if (onPredictionClick) {
+            card.append(
+                buildPredictablePlayerRow(topName, topSeed, null, onPredictionClick, match),
+                buildPredictablePlayerRow(bottomName, bottomSeed, null, onPredictionClick, match),
+            )
+        } else {
+            card.append(
+                buildPendingPlayerRow(topName, topSeed),
+                buildPendingPlayerRow(bottomName, bottomSeed),
+            )
+        }
     }
 
     return card

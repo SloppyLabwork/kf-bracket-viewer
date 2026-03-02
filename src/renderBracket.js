@@ -1,9 +1,10 @@
 import { renderMatchCard } from "./renderMatchCard.js"
+import { everyMatchPredicted, copyFinishingOrderToClipboard } from "./predictionMode.js"
 
 const ROUND_LABELS = ["Round of 32", "Round of 16", "Quarterfinals", "Semifinals", "Final"]
 const HALF_ROUND_COUNT = 4
 
-function createRoundColumn(roundIndex, matches, bracket, side) {
+function createRoundColumn(roundIndex, matches, bracket, side, onPredictionClick) {
     const column = document.createElement("div")
     column.className = `bracket-round round-${roundIndex} side-${side}`
 
@@ -18,7 +19,7 @@ function createRoundColumn(roundIndex, matches, bracket, side) {
     matches.forEach((match, index) => {
         const matchWrapper = document.createElement("div")
         matchWrapper.className = "match-wrapper"
-        matchWrapper.append(renderMatchCard(match, bracket))
+        matchWrapper.append(renderMatchCard(match, bracket, onPredictionClick))
         matchesContainer.append(matchWrapper)
     })
 
@@ -26,20 +27,20 @@ function createRoundColumn(roundIndex, matches, bracket, side) {
     return column
 }
 
-function createHalfBracket(side, bracket) {
+function createHalfBracket(side, bracket, onPredictionClick) {
     const half = document.createElement("div")
     half.className = `bracket-half bracket-${side}`
 
     for (let roundIndex = 0; roundIndex < HALF_ROUND_COUNT; roundIndex++) {
         const roundMatches = bracket.rounds[roundIndex].filter(m => m.halfSide === side)
-        const column = createRoundColumn(roundIndex, roundMatches, bracket, side)
+        const column = createRoundColumn(roundIndex, roundMatches, bracket, side, onPredictionClick)
         half.append(column)
     }
 
     return half
 }
 
-function createFinalColumn(bracket) {
+function createFinalColumn(bracket, onPredictionClick) {
     const column = document.createElement("div")
     column.className = "bracket-final"
 
@@ -51,24 +52,36 @@ function createFinalColumn(bracket) {
     const finalMatch = bracket.rounds[4][0]
     const matchWrapper = document.createElement("div")
     matchWrapper.className = "match-wrapper"
-    matchWrapper.append(renderMatchCard(finalMatch, bracket))
+    matchWrapper.append(renderMatchCard(finalMatch, bracket, onPredictionClick))
     column.append(matchWrapper)
 
-    if (finalMatch.winnerName) {
+    if (finalMatch.winnerName && !onPredictionClick) {
         const champion = document.createElement("div")
         champion.className = "champion-display"
         champion.textContent = `\uD83C\uDFC6 ${finalMatch.winnerName}`
         column.append(champion)
     }
 
+    if (onPredictionClick) {
+        const allPredicted = everyMatchPredicted(bracket)
+        const copyButton = document.createElement("button")
+        copyButton.className = "copy-prediction-button"
+        copyButton.textContent = "Copy Predictions"
+        copyButton.disabled = !allPredicted
+        if (allPredicted) {
+            copyButton.addEventListener("click", () => copyFinishingOrderToClipboard(bracket))
+        }
+        column.append(copyButton)
+    }
+
     return column
 }
 
-export function renderBracket(bracket, containerElement, metaConfig = {}) {
+export function renderBracket(bracket, containerElement, metaConfig = {}, onPredictionClick = null) {
     containerElement.innerHTML = ""
 
     const bracketContainer = document.createElement("div")
-    bracketContainer.className = "bracket"
+    bracketContainer.className = onPredictionClick ? "bracket prediction-mode" : "bracket"
 
     if (metaConfig.tournamentName) {
         const title = document.createElement("div")
@@ -91,9 +104,9 @@ export function renderBracket(bracket, containerElement, metaConfig = {}) {
         containerElement.append(linksBar)
     }
 
-    const eastHalf = createHalfBracket("east", bracket)
-    const finalColumn = createFinalColumn(bracket)
-    const westHalf = createHalfBracket("west", bracket)
+    const eastHalf = createHalfBracket("east", bracket, onPredictionClick)
+    const finalColumn = createFinalColumn(bracket, onPredictionClick)
+    const westHalf = createHalfBracket("west", bracket, onPredictionClick)
 
     westHalf.classList.add("bracket-west-reversed")
 

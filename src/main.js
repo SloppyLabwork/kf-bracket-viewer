@@ -7,6 +7,7 @@ import {
   applyResultsToBracket,
 } from './bracketEngine.js'
 import { renderBracket } from './renderBracket.js'
+import { detectPredictionMode, applyPrediction } from './predictionMode.js'
 
 const appElement = document.getElementById('bracket-app')
 const loadingIndicator = document.getElementById('loading-indicator')
@@ -110,7 +111,15 @@ async function initialize() {
 
   applyMetaStyles(metaConfig)
   loadingIndicator.hidden = true
-  renderBracket(bracket, appElement, metaConfig)
+
+  const predictionModeActive = detectPredictionMode(bracket)
+
+  function handlePredictionClick(match, selectedPlayerName) {
+    applyPrediction(bracket, match, selectedPlayerName)
+    renderBracket(bracket, appElement, metaConfig, handlePredictionClick)
+  }
+
+  renderBracket(bracket, appElement, metaConfig, predictionModeActive ? handlePredictionClick : null)
 }
 
 initialize().catch((err) => {

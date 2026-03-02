@@ -7,7 +7,7 @@ const ROUND_NAME_MAP = new Map([
 ])
 
 const PLAYER_COUNT = 32
-const ROUND_COUNT = 5
+export const ROUND_COUNT = 5
 const MATCHES_PER_HALF_ROUND_ONE = 8
 
 function generateSeedOrder(playerCount) {
@@ -196,6 +196,12 @@ export function applyResultsToBracket(bracket, matchResults) {
         }
     }
 
+    propagateFeederWinners(bracket)
+
+    return bracket
+}
+
+export function propagateFeederWinners(bracket) {
     for (let round = 1; round < ROUND_COUNT; round++) {
         for (const match of bracket.rounds[round]) {
             if (match.feeders) {
@@ -208,6 +214,4 @@ export function applyResultsToBracket(bracket, matchResults) {
             }
         }
     }
-
-    return bracket
 }
