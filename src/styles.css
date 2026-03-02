@@ -594,7 +594,8 @@ body {
     }
 
     .bracket-half.has-bg::before,
-    .bracket-half.has-bg::after {
+    .bracket-half.has-bg::after,
+    .bg-credit {
         display: none;
     }
 
@@ -652,6 +653,6 @@ body {
         min-width: 0;
         width: 100%;
         padding: 0;
-        margin-bottom: 1.5rem;
+        margin-bottom: 4rem;
     }
 }
