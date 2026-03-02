@@ -73,16 +73,13 @@ export function copyFinishingOrderToClipboard(bracket) {
     if (!finalMatch.winnerName) return
 
     const lines = []
-    let rank = 1
 
-    lines.push(`${rank}. ${finalMatch.winnerName}`)
-    rank++
+    lines.push(finalMatch.winnerName)
 
     const finalsLoser = finalMatch.topPlayerName === finalMatch.winnerName
         ? finalMatch.bottomPlayerName
         : finalMatch.topPlayerName
-    lines.push(`${rank}. ${finalsLoser}`)
-    rank++
+    lines.push(finalsLoser)
 
     for (let roundIndex = ROUND_COUNT - 2; roundIndex >= 0; roundIndex--) {
         const losers = []
@@ -98,8 +95,7 @@ export function copyFinishingOrderToClipboard(bracket) {
         losers.sort((a, b) => a.localeCompare(b))
 
         for (const loser of losers) {
-            lines.push(`${rank}. ${loser}`)
-            rank++
+            lines.push(loser)
         }
     }
 
