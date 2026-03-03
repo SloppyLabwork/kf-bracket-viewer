@@ -25,7 +25,7 @@ function buildPlayerRow(name, seed, isWinner, deckUrl, chainBid, deckSwapped) {
         deckLink.href = deckUrl
         deckLink.target = "_blank"
         deckLink.rel = "noopener noreferrer"
-        deckLink.textContent = "\u2694"
+        deckLink.textContent = "\u2728"
         deckLink.title = `${name}'s deck`
         row.append(deckLink)
     }
