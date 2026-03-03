@@ -112,7 +112,8 @@ body {
 
 .tournament-links a {
     color: var(--color-text-secondary);
-    text-decoration: none;
+    text-decoration: underline;
+    text-underline-offset: 3px;
     font-size: 0.8rem;
     transition: color 0.2s;
 }
