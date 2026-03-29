@@ -26,6 +26,9 @@ function applyMetaStyles(metaConfig) {
   const westRgba = hexToRgba(metaConfig.westColor, 0.08)
   appElement.style.background = `linear-gradient(135deg, ${eastRgba}, ${westRgba})`
 
+  document.documentElement.style.setProperty("--color-gradient-start", metaConfig.eastColor)
+  document.documentElement.style.setProperty("--color-gradient-end", metaConfig.westColor)
+
   if (metaConfig.tournamentName) {
     document.title = metaConfig.tournamentName
   }
