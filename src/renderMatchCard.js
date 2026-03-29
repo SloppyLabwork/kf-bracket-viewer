@@ -65,7 +65,7 @@ function findSeedForName(bracket, name) {
     const index = bracket.playerNames.findIndex(p => p.trim().toLowerCase() === norm)
     if (index < 0) return null
     const seed = index + 1
-    if (bracket.maxSeedDisplay > 0 && seed > bracket.maxSeedDisplay) return null
+    if (!bracket.maxSeedDisplay || seed > bracket.maxSeedDisplay) return null
     return seed
 }
 

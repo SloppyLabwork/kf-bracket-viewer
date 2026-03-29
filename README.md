@@ -5,7 +5,7 @@ A live tournament bracket viewer for 32-player KeyForge events. Pulls seedings a
 ## Quick Start
 
 1. Set up your Google Sheet (see below)
-2. Publish the sheet: **File > Share > Publish to web** (publish the entire document)
+2. Share the sheet: **Share > General access > Anyone with the link** (set to Viewer)
 3. Copy the sheet ID from the URL — it's the long string between `/d/` and `/edit`
 4. Open the bracket viewer with your sheet ID:
    ```
@@ -60,7 +60,7 @@ Key-value pairs for visual customization. All options are optional — any missi
 | West Color | Hex color for the right side, e.g. `#0077b6` | `#0077b6` |
 | East Background Credit | Art credit text for the left image | *(none)* |
 | West Background Credit | Art credit text for the right image | *(none)* |
-| Max Seed Display | Only show seed numbers up to this value, e.g. `8` | *(all seeds shown)* |
+| Max Seed Display | Only show seed numbers up to this value, e.g. `8` | *(no seeds shown)* |
 | Link__*Display Text* | A URL to link to under the title | *(no links)* |
 
 The "Key" header row is optional. Keys are case-insensitive.
@@ -73,7 +73,7 @@ Links are added using the `Link__` prefix followed by the display text. For exam
 
 | Parameter | Default | Description |
 |---|---|---|
-| `sheetId` | *(required)* | The ID of your published Google Sheet |
+| `sheetId` | *(required)* | The ID of your shared Google Sheet |
 | `playersSheet` | `Players` | Name of the tab containing player seedings |
 | `resultsSheet` | `Results` | Name of the tab containing match results |
 | `metaSheet` | `Meta` | Name of the tab containing visual config |
