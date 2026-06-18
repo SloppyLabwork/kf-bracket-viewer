@@ -91,10 +91,13 @@ async function initialize() {
   const rawMeta = parseMetaConfig(metaCsv)
   const links = []
   for (const [key, value] of Object.entries(rawMeta)) {
-    if (key.startsWith('link__') && value) {
+    if (!value) continue
+    const opensInNewTab = key.startsWith('link__')
+    const opensInSameTab = key.startsWith('link--')
+    if (opensInNewTab || opensInSameTab) {
       const rawText = key.slice('link__'.length).trim()
       const titleCased = rawText.replace(/\b\w/g, c => c.toUpperCase())
-      links.push({ text: titleCased, url: value })
+      links.push({ text: titleCased, url: value, newTab: opensInNewTab })
     }
   }
 

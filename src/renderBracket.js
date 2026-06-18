@@ -96,8 +96,10 @@ export function renderBracket(bracket, containerElement, metaConfig = {}, onPred
         for (const link of metaConfig.links) {
             const anchor = document.createElement("a")
             anchor.href = link.url
-            anchor.target = "_blank"
-            anchor.rel = "noopener noreferrer"
+            if (link.newTab) {
+                anchor.target = "_blank"
+                anchor.rel = "noopener noreferrer"
+            }
             anchor.textContent = link.text
             linksBar.append(anchor)
         }

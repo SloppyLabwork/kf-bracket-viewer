@@ -61,13 +61,19 @@ Key-value pairs for visual customization. All options are optional — any missi
 | East Background Credit | Art credit text for the left image | *(none)* |
 | West Background Credit | Art credit text for the right image | *(none)* |
 | Max Seed Display | Only show seed numbers up to this value, e.g. `8` | *(no seeds shown)* |
-| Link__*Display Text* | A URL to link to under the title | *(no links)* |
+| Link__*Display Text* | A URL to link to under the title (opens in a new tab) | *(no links)* |
+| Link--*Display Text* | Same as above, but opens in the same tab | *(no links)* |
 
 The "Key" header row is optional. Keys are case-insensitive.
 
 Background images are cropped at an angle where they meet the center of the bracket, with a colored border matching the side's color. Credit text appears at the bottom corner of each image.
 
-Links are added using the `Link__` prefix followed by the display text. For example, a key of `Link__Tournament Rules` with a value of `https://example.com/rules` creates a "Tournament Rules" link under the title. You can add multiple links.
+Links are added using a `Link` prefix followed by the display text. For example, a key of `Link__Tournament Rules` with a value of `https://example.com/rules` creates a "Tournament Rules" link under the title. You can add multiple links.
+
+The prefix controls how the link opens:
+
+- `Link__` (double underscore) opens the link in a new tab.
+- `Link--` (double dash) opens the link in the same tab.
 
 ## URL Parameters
 
